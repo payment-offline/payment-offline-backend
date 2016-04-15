@@ -17,6 +17,6 @@ class Pay
                       :client_ip => ip,
                       :app => {:id => Config.api_id}
     )
-    puts JSON.generate(charge)
+    JSON.generate(charge)
   end
 end

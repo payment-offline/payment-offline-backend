@@ -7,8 +7,6 @@ require './helpers/pay.rb'
 
 payment = Pay.new
 
-payment.pay(100, 'alipay', '127.0.0.1')
-
 get '/status' do
   JSON.generate ({status:'running'})
 end
