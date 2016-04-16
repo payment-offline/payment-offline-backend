@@ -24,7 +24,11 @@ end
 post '/charge/succeeded' do
   obj = request.body.read
   order_no = /"order_no":"(.*?)"/.match(obj)[1]
-  order_socket_pair[order_no].send(JSON.generate({status: 'charged'}))
+  begin
+    order_socket_pair[order_no].send(JSON.generate({status: 'charged'}))
+  rescue
+    puts 'Socket not found'
+  end
   'ok'
 end
 
