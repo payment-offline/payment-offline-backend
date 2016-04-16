@@ -5,6 +5,9 @@ require './config.rb'
 require './helpers/database.rb'
 require './helpers/pay.rb'
 
+configure {set :server, :puma}
+Faye::WebSocket.load_adapter('puma')
+
 payment = Pay.new
 
 get '/status' do
