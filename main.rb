@@ -22,8 +22,8 @@ get '/status' do
 end
 
 post '/charge/succeeded' do
-  obj = JSON.parse_nil(request.body.read)
-  order_no = obj['data']['order_no']
+  obj = request.body.read
+  order_no = /"order_no": "(.*?)"/.match(obj)[0]
   order_socket_pair[order_no].send(JSON.generate({status: 'charged'}))
   'ok'
 end
