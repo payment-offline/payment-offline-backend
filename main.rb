@@ -23,7 +23,7 @@ end
 
 post '/charge/succeeded' do
   obj = request.body.read
-  order_no = /"order_no": "(.*?)"/.match(obj)[0]
+  order_no = /"order_no":"(.*?)"/.match(obj)[0]
   order_socket_pair[order_no].send(JSON.generate({status: 'charged'}))
   'ok'
 end
