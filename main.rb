@@ -19,6 +19,7 @@ post '/charge/succeeded' do
   obj = JSON.parse(request.body.read)
   order_no = obj['data']['order_no']
   order_socket_pair[order_no].send JSON.generate({status: 'charged'})
+  'ok'
 end
 
 post '/charge' do
