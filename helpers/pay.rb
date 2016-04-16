@@ -6,7 +6,7 @@ class Pay
   end
 
   def pay(money, channel, ip)
-    order_no = SecureRandom.hex(rand(10))
+    order_no = SecureRandom.hex
     charge = Pingpp::Charge.create(
                       :order_no => order_no,
                       :amount => money,
