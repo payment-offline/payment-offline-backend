@@ -7,7 +7,7 @@ require './helpers/pay.rb'
 
 configure {set :server, :puma}
 Faye::WebSocket.load_adapter('puma')
-order_socket_pair = {test: 'hello'}
+order_socket_pair = {}
 
 payment = Pay.new
 
@@ -30,11 +30,14 @@ end
 get '/waiting/:order_id' do |order_id|
   ws = Faye::WebSocket.new(request.env)
 
-  ws.on :open do
+  ws.on :open do |event|
     order_socket_pair[order_id] = ws
+    ws.send(JSON.generate({stats: 'connected'}))
   end
 
-  ws.on :close do
+  ws.on :close do |event|
     order_socket_pair.delete(ws)
   end
+
+  ws.rack_response
 end
